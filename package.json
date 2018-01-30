@@ -1,7 +1,7 @@
 {
   "name": "resolve-handlers",
   "version": "0.1.0",
-  "description": "Resolve handlers from strings.",
+  "description": "Resolve and bind handlers from strings.",
   "main": "index.js",
   "dependencies": {
   },

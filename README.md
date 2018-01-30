@@ -1,6 +1,6 @@
 # Resolve handlers &middot; [![GitHub license](https://img.shields.io/github/license/insector-ab/resolve-handlers.svg)](https://github.com/insector-ab/resolve-handlers/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/resolve-handlers.svg?style=flat)](https://www.npmjs.com/package/resolve-handlers)
 
-Resolve handlers using strings. Inspired by event delegation in [Backbone.js](http://backbonejs.org/#Events).
+Resolve and bind handlers from strings. Inspired by event delegation in [Backbone.js](http://backbonejs.org/#Events).
 
 ## Installation
 

@@ -1,0 +1,19 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"folder_exclude_patterns": [
+				"resolve-handlers/node_modules",
+				"resolve-handlers/.nyc_output"
+			],
+			"file_include_patterns": [
+				"resolve-handlers/src/*.js",
+				"resolve-handlers/test/*.js",
+				"resolve-handlers/*.json",
+				"resolve-handlers/*.md",
+				"resolve-handlers/.*"
+			]
+		}
+	]
+}

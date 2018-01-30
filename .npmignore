@@ -1,0 +1,6 @@
+node_modules
+src
+test
+.babelrc
+.eslintrc
+.nyc_output

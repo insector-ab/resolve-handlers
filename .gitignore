@@ -1,4 +1,4 @@
 node_modules
 /*.js
 .nyc_output
-*.sublime-workspace
+*.sublime-*

@@ -10,7 +10,7 @@ npm install resolve-handlers
 
 ## Example usage
 ```javascript
-import {resolveDOMEventHandlers} from './resolve-handlers';
+import {resolveDOMEventHandlers} from 'resolve-handlers';
 
 /**
  * CommentController
@@ -21,12 +21,12 @@ export default class CommentController {
     // Target for event listeners
     this.element = element;
     // Resolve event handlers
-    this._resolvedEventHandlers = resolveDOMEventHandlers(this.getEventHandlerStrings(), this);
+    this._resolvedEventHandlers = resolveDOMEventHandlers(this.getDOMEventHandlerStrings(), this);
     // Add event listeners
     this.addEventListeners();
   }
 
-  getEventHandlerStrings() {
+  getDOMEventHandlerStrings() {
     return [
       'click .comment > .btn-delete: onDeleteCommentClick',
       'focusin .comment: onCommentFocus',

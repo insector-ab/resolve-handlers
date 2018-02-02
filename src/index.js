@@ -1,4 +1,4 @@
-import closest from 'component-closest';
+import componentClosest from 'component-closest';
 
 /**
  * Higher Order Function for getting resolvers
@@ -101,12 +101,24 @@ export const resolveDOMEventHandlers = getResolveFunction(getDOMEventHandler, de
 export function getDOMEventHandler(handlerName, eventType, selector, useCapture, ...args) {
   // Check handler defined
   if (typeof this[handlerName] === 'undefined') {
-    throw new ReferenceError(`Missing DOM event handler "${handlerName}" for ${this.constructor.name}.`);
+    throw new ReferenceError(
+      `Missing DOM event handler "${handlerName}" for ${this.constructor.name}.`
+    );
   }
   // Handler method
   const handler = (event, ...handlerArgs) => {
-    if (!selector || !!closest(event.target, selector, event.currentTarget)) {
-      this[handlerName](event, ...args.concat(handlerArgs));
+    // Find closest parent that matches selector
+    const currentTarget = componentClosest(event.target, selector, event.currentTarget);
+    // If no selector or currentTarget found
+    if (!selector || currentTarget) {
+      // Copy event properties into event substitute object
+      // and set currentTarget and originalEvent.
+      const newEventObj = Object.assign(
+        eventProps.reduce((o, a) => { o[a] = event[a]; return o; }, {}),
+        {currentTarget, originalEvent: event}
+      );
+      // Call handler
+      this[handlerName](newEventObj, ...args.concat(handlerArgs));
     }
   };
   // Set attributes on handler for easy add/remove listeners
@@ -169,3 +181,58 @@ export function defaultParseModelEventHandlerString(eventHandlerStr) {
  * "change width: onWidthChange"
  */
 export const defaultModelEventHandlerRegexp = /^(\S+)\s*(.*):\s(\S+)$/;
+
+/**
+ * Properties in MouseEvent + KeyboardEvent (Chrome).
+ * Helper for DOM event handler
+ */
+const eventProps = [
+  'altKey',
+  'bubbles',
+  'button',
+  'buttons',
+  'cancelBubble',
+  'cancelable',
+  'charCode',
+  'clientX',
+  'clientY',
+  'code',
+  'composed',
+  'ctrlKey',
+  'currentTarget',
+  'defaultPrevented',
+  'detail',
+  'eventPhase',
+  'fromElement',
+  'isComposing',
+  'isTrusted',
+  'key',
+  'keyCode',
+  'layerX',
+  'layerY',
+  'location',
+  'metaKey',
+  'movementX',
+  'movementY',
+  'offsetX',
+  'offsetY',
+  'pageX',
+  'pageY',
+  'path',
+  'relatedTarget',
+  'repeat',
+  'returnValue',
+  'screenX',
+  'screenY',
+  'shiftKey',
+  'sourceCapabilities',
+  'srcElement',
+  'target',
+  'timeStamp',
+  'toElement',
+  'type',
+  'view',
+  'which',
+  'x',
+  'y'
+];

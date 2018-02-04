@@ -111,14 +111,22 @@ export function getDOMEventHandler(handlerName, eventType, selector, useCapture,
     const currentTarget = componentClosest(event.target, selector, event.currentTarget);
     // If no selector or currentTarget found
     if (!selector || currentTarget) {
-      // Copy event properties into event substitute object
-      // and set currentTarget and originalEvent.
-      const newEventObj = Object.assign(
-        eventProps.reduce((o, a) => { o[a] = event[a]; return o; }, {}),
-        {currentTarget, originalEvent: event}
-      );
+      // event proxy, override currentTarget property.
+      const eventProxy = new Proxy(event, {
+        get: function(target, prop, receiver) {
+          if (prop === 'currentTarget') {
+            return currentTarget;
+          } else {
+            let value = Reflect.get(target, prop);
+            if (typeof value === 'function') {
+              value = value.bind(target);
+            }
+            return value;
+          }
+        }
+      });
       // Call handler
-      this[handlerName](newEventObj, ...args.concat(handlerArgs));
+      this[handlerName](eventProxy, ...args.concat(handlerArgs));
     }
   };
   // Set attributes on handler for easy add/remove listeners
@@ -181,58 +189,3 @@ export function defaultParseModelEventHandlerString(eventHandlerStr) {
  * "change width: onWidthChange"
  */
 export const defaultModelEventHandlerRegexp = /^(\S+)\s*(.*):\s(\S+)$/;
-
-/**
- * Properties in MouseEvent + KeyboardEvent (Chrome).
- * Helper for DOM event handler
- */
-const eventProps = [
-  'altKey',
-  'bubbles',
-  'button',
-  'buttons',
-  'cancelBubble',
-  'cancelable',
-  'charCode',
-  'clientX',
-  'clientY',
-  'code',
-  'composed',
-  'ctrlKey',
-  'currentTarget',
-  'defaultPrevented',
-  'detail',
-  'eventPhase',
-  'fromElement',
-  'isComposing',
-  'isTrusted',
-  'key',
-  'keyCode',
-  'layerX',
-  'layerY',
-  'location',
-  'metaKey',
-  'movementX',
-  'movementY',
-  'offsetX',
-  'offsetY',
-  'pageX',
-  'pageY',
-  'path',
-  'relatedTarget',
-  'repeat',
-  'returnValue',
-  'screenX',
-  'screenY',
-  'shiftKey',
-  'sourceCapabilities',
-  'srcElement',
-  'target',
-  'timeStamp',
-  'toElement',
-  'type',
-  'view',
-  'which',
-  'x',
-  'y'
-];

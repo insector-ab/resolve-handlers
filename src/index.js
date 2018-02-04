@@ -107,12 +107,17 @@ export function getDOMEventHandler(handlerName, eventType, selector, useCapture,
   }
   // Handler method
   const handler = (event, ...handlerArgs) => {
+    // If no selector, just call handler
+    if (!selector) {
+      this[handlerName](event, ...args.concat(handlerArgs));
+      return;
+    }
     // Find closest parent that matches selector
     const currentTarget = componentClosest(event.target, selector, event.currentTarget);
-    // If no selector or currentTarget found
-    if (!selector || currentTarget) {
-      // event proxy, override currentTarget property.
-      const eventProxy = new Proxy(event, {
+    // If currentTarget found
+    if (currentTarget) {
+      // Proxy event, override currentTarget property.
+      event = new Proxy(event, {
         get: function(target, prop, receiver) {
           if (prop === 'currentTarget') {
             return currentTarget;
@@ -125,8 +130,8 @@ export function getDOMEventHandler(handlerName, eventType, selector, useCapture,
           }
         }
       });
-      // Call handler
-      this[handlerName](eventProxy, ...args.concat(handlerArgs));
+      // Call if currentTarget found for selector
+      this[handlerName](event, ...args.concat(handlerArgs));
     }
   };
   // Set attributes on handler for easy add/remove listeners

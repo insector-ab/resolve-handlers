@@ -179,18 +179,17 @@ export const resolveModelEventHandlers = getResolveFunction(getEventHandler, def
  */
 export function defaultParseModelEventHandlerString(eventHandlerStr) {
   /* eslint-disable no-unused-vars */
-  const [all, eventType, property, handlerName] = eventHandlerStr.match(defaultDOMEventHandlerRegexp);
+  const [all, eventType, handlerName] = eventHandlerStr.match(defaultModelEventHandlerRegexp);
   /* eslint-enable no-unused-vars */
-  return [handlerName, eventType, property];
+  return [handlerName, eventType];
 }
 
 /**
  * Event handler string regexp.
  * Pattern:
  * "$eventType: $handlerName"
- * "$eventType $property: $handlerName"
  * Matches strings:
  * "change: onModelChange"
  * "change width: onWidthChange"
  */
-export const defaultModelEventHandlerRegexp = /^(\S+)\s*(.*):\s(\S+)$/;
+export const defaultModelEventHandlerRegexp = /^(.*):\s(\S+)$/;

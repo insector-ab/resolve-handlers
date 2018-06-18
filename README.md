@@ -28,22 +28,22 @@ export default class CommentController {
 
   getEventHandlerStrings() {
     return [
-    	'click .comment > .btn-delete: onDeleteCommentClick',
-    	'focusin .comment: onCommentFocus',
-    	'click .comment: onCommentClick',
+      'click .comment > .btn-delete: onDeleteCommentClick',
+      'focusin .comment: onCommentFocus',
+      'click .comment: onCommentClick'
     ];
   }
 
   onDeleteCommentClick() {
-  	/* delete handler */
+    /* delete handler */
   }
 
   onCommentFocus() {
-  	/* focus handler */
+    /* focus handler */
   }
 
   onCommentClick() {
-  	/* click handler */
+    /* click handler */
   }
 
   addEventListeners() {
@@ -59,8 +59,13 @@ export default class CommentController {
   }
 
 }
-
 ```
+
+
+## Change log
+
+### 0.2.0
+* Removed dependency component-closest
 
 
 ## License

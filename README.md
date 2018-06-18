@@ -30,7 +30,7 @@ export default class CommentController {
     return [
       'click .comment > .btn-delete: onDeleteCommentClick',
       'focusin .comment: onCommentFocus',
-      'click .comment: onCommentClick',
+      'click .comment: onCommentClick'
     ];
   }
 
@@ -59,8 +59,13 @@ export default class CommentController {
   }
 
 }
-
 ```
+
+
+## Change log
+
+### 0.2.0
+* Removed dependency component-closest
 
 
 ## License

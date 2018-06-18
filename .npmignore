@@ -3,5 +3,6 @@ src
 test
 .babelrc
 .eslintrc
+.gitignore
 .nyc_output
 *.sublime-*

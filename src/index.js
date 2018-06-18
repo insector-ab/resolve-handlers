@@ -1,4 +1,3 @@
-import componentClosest from 'component-closest';
 
 /**
  * Higher Order Function for getting resolvers
@@ -113,7 +112,7 @@ export function getDOMEventHandler(handlerName, eventType, selector, useCapture,
       return;
     }
     // Find closest parent that matches selector
-    const currentTarget = componentClosest(event.target, selector, event.currentTarget);
+    const currentTarget = event.target.closest(selector);
     // If currentTarget found
     if (currentTarget) {
       // Proxy event, override currentTarget property.

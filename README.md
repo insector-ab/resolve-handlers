@@ -35,15 +35,15 @@ export default class CommentController {
   }
 
   onDeleteCommentClick() {
-  	/* delete handler */
+    /* delete handler */
   }
 
   onCommentFocus() {
-  	/* focus handler */
+    /* focus handler */
   }
 
   onCommentClick() {
-  	/* click handler */
+    /* click handler */
   }
 
   addEventListeners() {

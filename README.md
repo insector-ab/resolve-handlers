@@ -10,7 +10,7 @@ npm install resolve-handlers
 
 ## Example usage
 ```javascript
-import {resolveDOMEventHandlers} from './resolve-handlers';
+import { resolveDOMEventHandlers } from 'resolve-handlers';
 
 /**
  * CommentController
@@ -21,7 +21,7 @@ export default class CommentController {
     // Target for event listeners
     this.element = element;
     // Resolve event handlers
-    this._resolvedEventHandlers = resolveDOMEventHandlers(this.getEventHandlerStrings(), this);
+    this._resolvedEventHandlers = resolveDOMEventHandlers.call(this, this.getEventHandlerStrings());
     // Add event listeners
     this.addEventListeners();
   }
@@ -63,6 +63,11 @@ export default class CommentController {
 
 
 ## Change log
+
+### 0.3.0
+* getResolveFunction now returns a function that needs context.
+* resolveDOMEventHandlers tests.
+* Dev env config and dependency updates (eslint, babel, nyc).
 
 ### 0.2.0
 * Removed dependency component-closest

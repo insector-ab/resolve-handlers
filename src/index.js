@@ -3,10 +3,10 @@
  * Higher Order Function for getting resolvers
  */
 export function getResolveFunction(getHandler, defaultParseString) {
-  return function(strings, context, parseString) {
-    return strings.map(str => {
+  return function(strings, parseString) {
+    return (strings || []).map(str => {
       return getHandler.apply(
-        context,
+        this,
         (parseString || defaultParseString)(str)
       );
     });
@@ -98,6 +98,10 @@ export const resolveDOMEventHandlers = getResolveFunction(getDOMEventHandler, de
  * getDOMEventHandler
  */
 export function getDOMEventHandler(handlerName, eventType, selector, useCapture, ...args) {
+  // Check context present
+  if (typeof this === 'undefined') {
+    throw new TypeError('Undefined context');
+  }
   // Check handler defined
   if (typeof this[handlerName] === 'undefined') {
     throw new ReferenceError(
@@ -144,9 +148,9 @@ export function getDOMEventHandler(handlerName, eventType, selector, useCapture,
  * Parse DOM event handler params from string.
  */
 export function defaultParseDOMEventHandlerString(eventHandlerStr) {
-  /* eslint-disable no-unused-vars */
-  const [all, eventType, selector, handlerName] = eventHandlerStr.match(defaultDOMEventHandlerRegexp);
-  /* eslint-enable no-unused-vars */
+  /* eslint-disable-next-line */
+  const [all, eventType, selector, handlerName] = eventHandlerStr.match(defaultDOMEventHandlerRegexp) || [];
+  // Return args for getDOMEventHandler
   return [handlerName, eventType, selector, false];
 }
 

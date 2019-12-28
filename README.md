@@ -64,6 +64,9 @@ export default class CommentController {
 
 ## Change log
 
+### 0.4.0
+* Dependency updates
+
 ### 0.3.0
 * getResolveFunction now returns a function that needs context.
 * resolveDOMEventHandlers tests.

@@ -66,6 +66,7 @@ export default class CommentController {
 
 ### 0.4.0
 * Dependency updates
+* Babel config for build
 
 ### 0.3.0
 * getResolveFunction now returns a function that needs context.

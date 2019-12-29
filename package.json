@@ -1,6 +1,6 @@
 {
   "name": "resolve-handlers",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "description": "Resolve handlers from strings.",
   "main": "index.js",
   "dependencies": {},
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "test": "nyc mocha ./test/**/*.test.js",
-    "build": "babel src --out-dir .",
+    "build": "babel src --config-file ./babel.config.build.js --out-dir .",
     "watch": "babel src --watch --out-dir .",
     "lint": "npx eslint src/**.js test/**.js"
   },
